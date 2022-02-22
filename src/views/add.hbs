@@ -1,0 +1,45 @@
+<form name="user" method="post">
+    <fieldset>
+        <legend>Name</legend>
+        <input type="tex" name="name" />
+    </fieldset>
+    <fieldset>
+        <legend>Age</legend>
+        <input type="number" name="age" />
+    </fieldset>
+    <button id="submitUser" type="submit">Добавить</button>
+</form>
+
+<script>
+    const submit = document.getElementById("submitUser");
+    const form = document.forms.user;
+
+    submit.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const name = form.name.value;
+        const age = form.age.value;
+
+        if (name === "" || +age <= 0) {
+            return;
+        }
+
+        const response = await fetch("/api/users", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                age: +age,
+            }),
+        });
+
+        if (response.ok) {
+            const data = response.json();
+
+            form.reset();
+        }
+    });
+</script>
