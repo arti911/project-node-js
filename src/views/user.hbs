@@ -1,0 +1,56 @@
+<div class="user-data">User:
+    <span id="name" class="user-data__name"></span>
+</div>
+<div class="user-data">Age: <span id="age" class="user-data__age"></span></div>
+<button id="deleteUser">Delete</button>
+
+<script>
+    const nameElem = document.getElementById("name");
+    const ageElem = document.getElementById("age");
+    const deleteUserBtn = document.getElementById("deleteUser");
+    
+    const getUser = async (id) => {
+        try {
+            const response = await fetch(`/api/users/${id}`);
+            
+            if (response.ok) {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+
+                const data = response.json(); return data;
+            } else {
+                throw new Error("Not ok");
+            }
+        }
+        catch (e) { console.log("---e", e); }
+    };
+
+    getUser({{ id }}).then((response) => {
+        const { name, age } = response;
+        
+        nameElem.append(name);
+        ageElem.append(age);
+            
+    });
+    
+    deleteUserBtn.addEventListener("click", async () => {
+        try {
+            const response = await fetch(`/api/users/${({{id}})}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                }
+            });
+
+
+            if (response.ok) {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+            }
+        } catch (e) {
+            console.log("---e", e);
+        }
+    });
+</script>

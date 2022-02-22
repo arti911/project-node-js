@@ -1,0 +1,40 @@
+<h1>Hello Experss.</h1>
+<ul id="listUsers">
+  {{#each users}}
+    <li>
+      <a href="">{{this.name}} - {{this.age}}</a>
+    </li>
+  {{/each}}
+</ul>
+
+<script>
+const list = document.getElementById("listUsers");
+
+const get = async () => {
+  try {
+    const response = await fetch("/api/users");
+
+    if (response.ok) {
+      const data = await response.json();
+
+      return data;
+    }
+  } catch (e) {
+    throw e;
+  }
+};
+
+
+  try {
+    get().then((response) => {
+      if (response?.length && response?.length > 0) {
+        response.map((item) => {
+            const elem = `<li><a href="/user/${item.id}">${item.name} - ${item.age}</a></li>`;
+            list.insertAdjacentHTML("afterbegin", elem);
+        });
+      }
+    });
+  } catch (e) {
+    console.log("---e", e);
+  }
+</script>
