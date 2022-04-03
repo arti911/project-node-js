@@ -9,6 +9,7 @@
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
+    "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
