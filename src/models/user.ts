@@ -39,6 +39,10 @@ class User {
   getUser(request: Request, response: Response) {
     const { id } = request.params;
 
+    if (!id) {
+      return;
+    }
+
     const user = this.users.find((item) => item.id === +id);
 
     if (user) {
@@ -74,6 +78,10 @@ class User {
 
   deleteUser(request: Request, response: Response) {
     const { id } = request.params;
+
+    if (!id) {
+      return;
+    }
 
     const index = this.users.findIndex((item) => item.id === +id);
 
