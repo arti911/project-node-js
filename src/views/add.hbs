@@ -7,14 +7,13 @@
         <legend>Age</legend>
         <input type="number" name="age" />
     </fieldset>
-    <button id="submitUser" type="submit">Добавить</button>
+    <button type="submit">Добавить</button>
 </form>
 
 <script>
-    const submit = document.getElementById("submitUser");
     const form = document.forms.user;
 
-    submit.addEventListener("click", async (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const name = form.name.value;
